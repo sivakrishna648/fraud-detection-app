@@ -1,0 +1,71 @@
+/* ✅ Add a background image */
+body {
+    font-family: Arial, sans-serif;
+    background: url("/static/background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    text-align: center;
+    padding: 20px;
+    color: white;
+}
+
+
+/* ✅ Add a semi-transparent container */
+.container {
+    width: 400px;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.7); /* ✅ Semi-transparent black */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+}
+
+/* ✅ Customize headings */
+h2 {
+    color: #ffcc00; /* Yellow */
+    font-size: 24px;
+}
+
+/* ✅ Improve form layout */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ✅ Style labels */
+label {
+    text-align: left;
+    margin: 5px 0;
+    font-weight: bold;
+    color: #ffcc00; /* Yellow */
+}
+
+/* ✅ Style input fields */
+input, select, button {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* ✅ Style button */
+button {
+    background: #ff5733; /* Bright Orange */
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #c70039; /* Dark Red */
+}
+
+/* ✅ Style the result */
+h3 {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #679f80; /* Light Green */
+}

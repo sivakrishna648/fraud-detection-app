@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Financial Fraud Detection</h2>
+        <form id="fraudForm">
+            <label for="amount">Transaction Amount:</label>
+            <input type="number" id="amount" required>
+
+            <label for="customerID">Customer ID:</label>
+            <input type="number" id="customerID" required>
+
+            <label for="merchantID">Merchant ID:</label>
+            <input type="number" id="merchantID" required>
+
+            <label for="transactionType">Transaction Type:</label>
+            <select id="transactionType">
+                <option value="0">Online</option>
+                <option value="1">ATM</option>
+                <option value="2">POS</option>
+                <option value="3">Mobile</option>
+                <option value="4">Wire Transfer</option>
+            </select>
+
+            <label for="location">Location:</label>
+            <select id="location">
+                <option value="0">New York</option>
+                <option value="1">Los Angeles</option>
+                <option value="2">Chicago</option>
+                <option value="3">Houston</option>
+                <option value="4">Miami</option>
+            </select>
+
+            <button type="button" onclick="predictFraud()">Predict</button>
+        </form>
+
+        <h3 id="result"></h3>
+    </div>
+
+    <script>
+        function predictFraud() {
+            let amount = document.getElementById("amount").value;
+            let customerID = document.getElementById("customerID").value;
+            let merchantID = document.getElementById("merchantID").value;
+            let transactionType = document.getElementById("transactionType").value;
+            let location = document.getElementById("location").value;
+
+            // 🚀 Prevent Empty Fields
+            if (!amount || !customerID || !merchantID || isNaN(amount) || isNaN(customerID) || isNaN(merchantID)) {
+                alert("❌ Please enter valid values for Amount, Customer ID, and Merchant ID!");
+                return;
+            }
+
+            let data = {
+                Amount: parseFloat(amount),
+                CustomerID: parseInt(customerID),
+                MerchantID: parseInt(merchantID),
+                TransactionType: parseInt(transactionType),
+                Location: parseInt(location)
+            };
+
+            fetch("/predict", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById("result").innerHTML = "❌ Error: " + data.error;
+                } else {
+                    let resultText = data["Fraud Prediction"] == 1 ? "⚠ Fraud Detected!" : "✅ No Fraud.";
+                    document.getElementById("result").innerHTML = resultText;
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("result").innerHTML = "❌ Error predicting fraud.";
+            });
+        }
+    </script>
+</body>
+</html>
